@@ -28,9 +28,10 @@ public class LevelManager : MonoBehaviour
     public static int GetMovesRemaining() =>
         Mathf.Max(0, (int)playerMovesRemaining);
 
-    public static void PlayerMove()
+    public static void UpdatePlayerStep()
     {
         playerMovesRemaining -= 1 / (float)numberOfPlayers;
+        EventManager.PlayerMove();
         if (playerMovesRemaining > 0 || hasPlayerWon)
             return;
         else PlayerLose();
@@ -48,5 +49,6 @@ public class LevelManager : MonoBehaviour
         numberOfPlayers = 1;
     }
     public static String GetSceneName() => SceneManager.GetActiveScene().name;
+    public static float GetTimeBeforeRestart() => timeBeforeRestarting;
 }
 

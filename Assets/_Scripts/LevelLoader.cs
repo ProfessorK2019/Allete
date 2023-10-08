@@ -6,18 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
-    [SerializeField]private Animator transition;
+    [SerializeField] private Animator transition;
     private void Start()
     {
-        EventManager.OnPlayerMovesRunOut += OnPlayerMovesRunOut_Transition;
+        EventManager.OnPlayerMovesRunOut += StartTransition;
+        EventManager.OnPlayerWin += StartTransition;
+        GameViewUI.OnRestart += StartTransition;
+        WinningTrigger.OnNextLevelLoad += StartTransition;
     }
 
-    private void OnPlayerMovesRunOut_Transition()
+    private void OnDestroy()
     {
-       transition.SetTrigger("Start");
+        EventManager.OnPlayerMovesRunOut -= StartTransition;
+        EventManager.OnPlayerWin -= StartTransition;
+        GameViewUI.OnRestart -= StartTransition;
+        WinningTrigger.OnNextLevelLoad -= StartTransition;
     }
-    void OnDestroy()
+
+    private void StartTransition()
     {
-        EventManager.OnPlayerMovesRunOut -= OnPlayerMovesRunOut_Transition;
+        transition.SetTrigger("Start");
     }
 }

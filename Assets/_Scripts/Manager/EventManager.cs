@@ -8,19 +8,11 @@ using System.Threading.Tasks;
 
 public static class EventManager
 {
-    //Scene Events
-    public static event Action OnSceneLoadStart;
-    public static event Action OnSceneLoadEnd;
-
-    public static void SceneLoadStart() =>
-        OnSceneLoadStart?.Invoke();
-
-    public static void SceneLoadEnd() =>
-        OnSceneLoadEnd?.Invoke();
-
     //Level Events
     public static event Action OnPlayerMovesRunOut;
     public static event Action OnPlayerWin;
+    public static event Action OnPlayerMove;
+    public static event Action OnPlayerBarrier;
 
     public static async void PlayerMovesRunOut(float seconds, String sceneName)
     {
@@ -28,11 +20,8 @@ public static class EventManager
         await Task.Delay(TimeSpan.FromSeconds(seconds));
         SceneManager.LoadScene(sceneName);
     }
-
+    public static void PlayerMove() => OnPlayerMove?.Invoke();
     public static void PlayerWin() => OnPlayerWin?.Invoke();
 
-    public static event Action OnPlayerBarrier;
-
-    public static void PlayerBarrier() =>
-        OnPlayerBarrier?.Invoke();
+    public static void PlayerBarrier() => OnPlayerBarrier?.Invoke();
 }

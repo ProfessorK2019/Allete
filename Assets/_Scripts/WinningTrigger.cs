@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +9,7 @@ public class WinningTrigger : MonoBehaviour
 {
     [SerializeField] private ParticleSystem winningExplosion;
     [SerializeField] private ParticleSystem winningParticle;
-    [SerializeField] private string nextLevel;
+    public static event Action OnNextLevelLoad;
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
@@ -16,13 +18,18 @@ public class WinningTrigger : MonoBehaviour
 
             Destroy(winningParticle);
             winningExplosion.Play();
-            StartCoroutine(LoadNextLevel());
+            LoadNextLevel();
         }
     }
-    private IEnumerator LoadNextLevel()
+    public async void LoadNextLevel()
     {
-        yield return new WaitForSeconds(1.5f);
-        SceneManager.LoadScene(nextLevel);
+        OnNextLevelLoad?.Invoke();
+        await Task.Delay(TimeSpan.FromSeconds(LevelManager.GetTimeBeforeRestart()));
+
+        Scene currentScene = SceneManager.GetActiveScene();
+        int sceneIndex = currentScene.buildIndex;
+
+        SceneManager.LoadScene(sceneIndex + 1);
     }
 
 }

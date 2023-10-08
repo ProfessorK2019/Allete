@@ -4911,7 +4911,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winningExplosion: {fileID: 1040263838}
   winningParticle: {fileID: 1507368897}
-  nextLevel: Level2
 --- !u!61 &1574339383
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4986,7 +4985,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5afa2c5325e9ac46967cf06a50c1a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfSteps: 5
 --- !u!4 &1623839958
 Transform:
   m_ObjectHideFlags: 0

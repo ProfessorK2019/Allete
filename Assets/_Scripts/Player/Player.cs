@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
@@ -53,8 +52,9 @@ public class Player : MonoBehaviour
     }
     protected virtual void JumpTo(float targetX, float targetY)
     {
+        LevelManager.UpdatePlayerStep();//update player ui step remain
+        
         isMoving = true;
-        LevelManager.PlayerMove();
         targetPosition = new Vector3(targetX, targetY, 0f);
 
         // Check collider
