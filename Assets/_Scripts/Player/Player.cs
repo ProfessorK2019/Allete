@@ -33,19 +33,22 @@ public class Player : MonoBehaviour
     }
     protected virtual void GatherInput()
     {
-        if (!isMoving)
+        if (GameManager.Instance.IsPlaying())
         {
-            float xPos = transform.position.x;
-            float yPos = transform.position.y;
+            if (!isMoving)
+            {
+                float xPos = transform.position.x;
+                float yPos = transform.position.y;
 
-            if (playerInput.Right())
-                JumpTo(xPos + GridManager.Instance.gridSizeX * 0.5f, yPos - GridManager.Instance.gridSizeY * 0.5f);
-            else if (playerInput.Left())
-                JumpTo(xPos - GridManager.Instance.gridSizeX * 0.5f, yPos + GridManager.Instance.gridSizeY * 0.5f);
-            else if (playerInput.Down())
-                JumpTo(xPos - GridManager.Instance.gridSizeX * 0.5f, yPos - GridManager.Instance.gridSizeY * 0.5f);
-            else if (playerInput.Up())
-                JumpTo(xPos + GridManager.Instance.gridSizeX * 0.5f, yPos + GridManager.Instance.gridSizeY * 0.5f);
+                if (playerInput.Right())
+                    JumpTo(xPos + GridManager.Instance.gridSizeX * 0.5f, yPos - GridManager.Instance.gridSizeY * 0.5f);
+                else if (playerInput.Left())
+                    JumpTo(xPos - GridManager.Instance.gridSizeX * 0.5f, yPos + GridManager.Instance.gridSizeY * 0.5f);
+                else if (playerInput.Down())
+                    JumpTo(xPos - GridManager.Instance.gridSizeX * 0.5f, yPos - GridManager.Instance.gridSizeY * 0.5f);
+                else if (playerInput.Up())
+                    JumpTo(xPos + GridManager.Instance.gridSizeX * 0.5f, yPos + GridManager.Instance.gridSizeY * 0.5f);
+            }
         }
     }
     protected virtual void JumpTo(float targetX, float targetY)
@@ -87,6 +90,7 @@ public class Player : MonoBehaviour
         jumpTween = transform.DOJump(initialPosition, jumpPower, amountOfJump, durationOfJump)
             .SetEase(Ease.OutCubic).OnComplete(() => isMoving = false);
         CameraShake.Instance.Shake();
+        EventManager.PlayerBarrier();
     }
     protected virtual IEnumerator CheckGridSprite()
     {
