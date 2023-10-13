@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
     protected virtual void JumpTo(float targetX, float targetY)
     {
         LevelManager.UpdatePlayerStep();//update player ui step remain
-        
+
         isMoving = true;
         targetPosition = new Vector3(targetX, targetY, 0f);
 
@@ -64,6 +64,7 @@ public class Player : MonoBehaviour
         tileLayer);
         if (hit.collider == null) //not detected collider
         {
+            EventManager.PlayerMove();
             StartCoroutine(CheckGridSprite());
             if (!isSameSprite)
                 jumpTween = transform.DOJump(targetPosition, jumpPower, amountOfJump, durationOfJump)
@@ -85,10 +86,10 @@ public class Player : MonoBehaviour
 
         yield return new WaitForSeconds(jumpTweenDelay);
 
-        //0.3f is duration when comback to initialPosition
         jumpTween.Kill();
         jumpTween = transform.DOJump(initialPosition, jumpPower, amountOfJump, durationOfJump)
             .SetEase(Ease.OutCubic).OnComplete(() => isMoving = false);
+
         CameraShake.Instance.Shake();
         EventManager.PlayerBarrier();
     }

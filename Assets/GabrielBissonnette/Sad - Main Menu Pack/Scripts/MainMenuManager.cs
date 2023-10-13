@@ -107,7 +107,7 @@ namespace GabrielBissonnette.SAD
             yield return new WaitForSeconds(delayBeforeLoading);
 
             // Scene Load
-            SceneManager.LoadScene(sceneToLoad);
+            Loader.Load(Loader.Scene.Level1);
         }
 
         public void Quit()

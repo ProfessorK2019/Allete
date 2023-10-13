@@ -12,14 +12,16 @@ public class BigPlayerController : Player
     {
         InitStartPosition();
     }
-    private void InitStartPosition() 
+    private void InitStartPosition()
     => transform.position = GridManager.Instance.GetGridCenterPosition(transform.position);
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         if (other.TryGetComponent<Spike>(out Spike spike))
         {
+            EventManager.PlayerSplit();
+
+            GameManager.Instance.ChangeState(GameManager.State.ReadyToStart);
             spike.CreateSmallPlayers();
-            LevelManager.PlayerSplit();
             jumpTween.Kill();
             Destroy(gameObject);
         }

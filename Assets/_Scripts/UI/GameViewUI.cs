@@ -25,7 +25,6 @@ public class GameViewUI : MonoBehaviour
     {   
         OnRestart?.Invoke();
         await Task.Delay(TimeSpan.FromSeconds(LevelManager.GetTimeBeforeRestart()));
-        // AsyncUtilities.Invoke(this, OnRestart, LevelManager.GetTimeBeforeRestart());
         SceneManager.LoadScene(LevelManager.GetSceneName());
     }
 }

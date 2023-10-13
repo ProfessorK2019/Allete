@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
-{   
+{
     //Moves
     [Range(0f, 3f)][SerializeField] private float TimeBeforeRestarting = 0.5f;
     [Range(1, 100)][SerializeField] private int PlayerMovesAllowed;
@@ -23,7 +23,11 @@ public class LevelManager : MonoBehaviour
         playerMovesRemaining = PlayerMovesAllowed;
         numberOfPlayers = 1;
         hasPlayerWon = false;
+        
         EventManager.OnPlayerWin += () => hasPlayerWon = true;
+
+        EventManager.OnPlayerCombine += () => numberOfPlayers = 1;
+        EventManager.OnPlayerSplit += () => numberOfPlayers = 2;
     }
     public static int GetMovesRemaining() =>
         Mathf.Max(0, (int)playerMovesRemaining);
@@ -31,22 +35,9 @@ public class LevelManager : MonoBehaviour
     public static void UpdatePlayerStep()
     {
         playerMovesRemaining -= 1 / (float)numberOfPlayers;
-        EventManager.PlayerMove();
         if (playerMovesRemaining > 0 || hasPlayerWon)
             return;
-        else PlayerLose();
-    }
-    public static void PlayerLose()
-    {
-        EventManager.PlayerMovesRunOut(timeBeforeRestarting, GetSceneName());
-    }
-    public static void PlayerSplit()
-    {
-        numberOfPlayers = 2;
-    }
-    public static void PlayerCombine()
-    {
-        numberOfPlayers = 1;
+        else EventManager.PlayerLose(timeBeforeRestarting, GetSceneName());
     }
     public static String GetSceneName() => SceneManager.GetActiveScene().name;
     public static float GetTimeBeforeRestart() => timeBeforeRestarting;

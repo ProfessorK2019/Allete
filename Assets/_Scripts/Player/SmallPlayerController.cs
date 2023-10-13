@@ -19,7 +19,7 @@ public class SmallPlayerController : Player
             {
                 transform.position = GridManager.Instance.GetGridCenterPosition(transform.position);
                 Instantiate(bigPlayerPrefab, transform.position, Quaternion.identity);
-                LevelManager.PlayerCombine();
+                EventManager.PlayerCombine();
             }
         }
     }

@@ -7,30 +7,37 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    private enum State
+    public enum State
     {
         ReadyToStart,
         Playing,
     }
     private State state;
-    private float readyToStartTimer = 2f;
+    private float readyToStartTimer = 1f;
+    private float currentTimer;
     private void Awake()
     {
         Instance = this;
         state = State.ReadyToStart;
+        currentTimer = readyToStartTimer;
     }
     private void Update()
     {
         switch (state)
         {
             case State.ReadyToStart:
-                readyToStartTimer -= Time.deltaTime;
-                if (readyToStartTimer <= 0)
+                currentTimer -= Time.deltaTime;
+                if (currentTimer <= 0)
                 {
-                    state = State.Playing;
+                    ChangeState(State.Playing);
                 }
                 break;
         }
     }
     public bool IsPlaying() => state == State.Playing;
+    public void ChangeState(State newState)
+    {
+        currentTimer = readyToStartTimer;
+        state = newState;
+    }
 }

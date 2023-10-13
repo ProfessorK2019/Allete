@@ -9,19 +9,23 @@ using System.Threading.Tasks;
 public static class EventManager
 {
     //Level Events
-    public static event Action OnPlayerMovesRunOut;
+    public static event Action OnPlayerLose;
     public static event Action OnPlayerWin;
     public static event Action OnPlayerMove;
     public static event Action OnPlayerBarrier;
+    public static event Action OnPlayerCombine;
+    public static event Action OnPlayerSplit;
 
-    public static async void PlayerMovesRunOut(float seconds, String sceneName)
+    public static async void PlayerLose(float seconds, String sceneName)
     {
-        OnPlayerMovesRunOut?.Invoke();
-        await Task.Delay(TimeSpan.FromSeconds(seconds));
+        OnPlayerLose?.Invoke();
+        GameManager.Instance.ChangeState(GameManager.State.ReadyToStart);//change state so that player cant move before transition
+        await Task.Delay(TimeSpan.FromSeconds(seconds));//wait some delay for transition
         SceneManager.LoadScene(sceneName);
     }
     public static void PlayerMove() => OnPlayerMove?.Invoke();
     public static void PlayerWin() => OnPlayerWin?.Invoke();
-
     public static void PlayerBarrier() => OnPlayerBarrier?.Invoke();
+    public static void PlayerCombine() => OnPlayerCombine?.Invoke();
+    public static void PlayerSplit() => OnPlayerSplit?.Invoke();
 }
