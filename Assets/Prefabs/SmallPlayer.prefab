@@ -41,8 +41,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4254415528565745931}
   - component: {fileID: 4254415528565745941}
-  - component: {fileID: 3702402861645698212}
   - component: {fileID: -2232048255517592961}
+  - component: {fileID: 3702402861645698212}
   - component: {fileID: 1325942084839970266}
   m_Layer: 0
   m_Name: SmallPlayer
@@ -95,27 +95,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &3702402861645698212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4254415528565745928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04c4252fbf26d764b8cbf061e784ab07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rayCastStartPoint: {fileID: 4254415528184872927}
-  tileLayer:
-    serializedVersion: 2
-    m_Bits: 192
-  jumpPower: 0.3
-  amountOfJump: 1
-  durationOfJump: 0.3
-  illegalSprite: {fileID: -5261011116430946631, guid: c03120e01cc17324bb993b533170a4e2, type: 3}
-  bigPlayerPrefab: {fileID: 1576812132747576443, guid: 363293256b9f164419acbee70eec3870, type: 3}
 --- !u!61 &-2232048255517592961
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -161,6 +140,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &3702402861645698212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4254415528565745928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04c4252fbf26d764b8cbf061e784ab07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rayCastStartPoint: {fileID: 4254415528184872927}
+  tileLayer:
+    serializedVersion: 2
+    m_Bits: 192
+  jumpPower: 0.3
+  amountOfJump: 1
+  durationOfJump: 0.3
+  illegalSprite: {fileID: -5261011116430946631, guid: c03120e01cc17324bb993b533170a4e2, type: 3}
+  particlePrefab: {fileID: 3442624501062476667, guid: c22ceee9144a7ef41907a1837b08dbaf, type: 3}
+  bigPlayerPrefab: {fileID: 1576812132747576443, guid: 363293256b9f164419acbee70eec3870, type: 3}
 --- !u!114 &1325942084839970266
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,7 +9,6 @@ using System;
 public class GameViewUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI numberOfStepsTxt;
-    [SerializeField] private Image image;
     public static event Action OnRestart;
 
     private void Start()

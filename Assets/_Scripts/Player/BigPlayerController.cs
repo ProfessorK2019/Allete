@@ -21,6 +21,7 @@ public class BigPlayerController : Player
             EventManager.PlayerSplit();
 
             GameManager.Instance.ChangeState(GameManager.State.ReadyToStart);
+            SpawnParticle();
             spike.CreateSmallPlayers();
             jumpTween.Kill();
             Destroy(gameObject);

@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c352198a56c4a42ba1c73e49e510e7, type: 3}
   m_Name: AudioList
   m_EditorClassIdentifier: 
-  move: {fileID: 8300000, guid: 928a41e84403fe54b8b0d07a8becaf51, type: 3}
+  move: {fileID: 8300000, guid: 8d78100f27725df4c9622648d6f457e1, type: 3}
   barrier: {fileID: 8300000, guid: b27fac113958be74ca25471752568ce4, type: 3}
+  playerLose: {fileID: 8300000, guid: 6a4a04563b05bcc4a82320216aa6ec57, type: 3}
+  buttonClick: {fileID: 8300000, guid: 5fd3a51b41b1b094f904f6b2ad876c2e, type: 3}
+  playerWin: {fileID: 8300000, guid: 593499b50fdda754289c19b80217434a, type: 3}
+  playerCombine: {fileID: 8300000, guid: d50f1f693927fbd49add840a9a6ae0b2, type: 3}
+  playerSplit: {fileID: 8300000, guid: 6649efd99aa0518498e7779e24bafd43, type: 3}

@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     [Header("SPRITE CHECK")]
     protected bool isSameSprite;
     [SerializeField] protected Sprite illegalSprite;
+    [Header("PARTICLE")]
+    [SerializeField] protected GameObject particlePrefab;
 
     protected virtual void Awake()
     {
@@ -52,8 +54,6 @@ public class Player : MonoBehaviour
     }
     protected virtual void JumpTo(float targetX, float targetY)
     {
-        LevelManager.UpdatePlayerStep();//update player ui step remain
-
         isMoving = true;
         targetPosition = new Vector3(targetX, targetY, 0f);
 
@@ -64,12 +64,14 @@ public class Player : MonoBehaviour
         tileLayer);
         if (hit.collider == null) //not detected collider
         {
-            EventManager.PlayerMove();
             StartCoroutine(CheckGridSprite());
             if (!isSameSprite)
+            {
+                EventManager.PlayerMove();
                 jumpTween = transform.DOJump(targetPosition, jumpPower, amountOfJump, durationOfJump)
                     .SetEase(Ease.OutCubic)
                     .OnComplete(() => isMoving = false);
+            }
         }
         else // detected collider
         {
@@ -110,4 +112,6 @@ public class Player : MonoBehaviour
     {
 
     }
+    protected virtual void SpawnParticle() => Instantiate(particlePrefab, transform.position, Quaternion.identity);
+
 }

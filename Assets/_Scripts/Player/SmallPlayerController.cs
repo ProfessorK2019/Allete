@@ -10,16 +10,19 @@ public class SmallPlayerController : Player
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
-
         if (other.TryGetComponent<SmallPlayerController>(out SmallPlayerController smallPlayerController))
         {
+            EventManager.PlayerCombine();
+            SpawnParticle();
+
             jumpTween.Kill();
             Destroy(gameObject);
             if (gameObject.GetInstanceID() > smallPlayerController.gameObject.GetInstanceID())
             {
                 transform.position = GridManager.Instance.GetGridCenterPosition(transform.position);
+
                 Instantiate(bigPlayerPrefab, transform.position, Quaternion.identity);
-                EventManager.PlayerCombine();
+
             }
         }
     }
