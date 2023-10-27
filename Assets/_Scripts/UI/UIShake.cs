@@ -19,6 +19,5 @@ public class UIShake : MonoBehaviour
     private void OnPlayerLose_Shake()
     {
         Transform.DOShakePosition(AnimationTime, ShakeStrength);
-        Transform.DOShakeRotation(AnimationTime, ShakeStrength);
     }
 }

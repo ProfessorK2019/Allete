@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour,ITriggerable
 {
     protected PlayerInput playerInput;
     protected Vector3 initialPosition;
@@ -109,9 +109,17 @@ public class Player : MonoBehaviour
         isSameSprite = false;
     }
     protected virtual void OnTriggerEnter2D(Collider2D other)
-    {
-
+    {   
+        
     }
-    protected virtual void SpawnParticle() => Instantiate(particlePrefab, transform.position, Quaternion.identity);
+    public virtual void SpawnParticle() => Instantiate(particlePrefab, transform.position, Quaternion.identity);
+    protected virtual void OnDestroy()
+    {
+        jumpTween.Kill();
+    }
 
+    public void Trigger()
+    {
+        
+    }
 }

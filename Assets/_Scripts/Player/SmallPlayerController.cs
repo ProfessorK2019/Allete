@@ -9,13 +9,13 @@ public class SmallPlayerController : Player
     [SerializeField] private GameObject bigPlayerPrefab;
 
     protected override void OnTriggerEnter2D(Collider2D other)
-    {
+    {   
         if (other.TryGetComponent<SmallPlayerController>(out SmallPlayerController smallPlayerController))
         {
             EventManager.PlayerCombine();
             SpawnParticle();
 
-            jumpTween.Kill();
+
             Destroy(gameObject);
             if (gameObject.GetInstanceID() > smallPlayerController.gameObject.GetInstanceID())
             {

@@ -491,6 +491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437f3d0eb9183c84699350f02decd9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 295084210}
   spawnPlayerPos:
   - {fileID: 140385869}
   - {fileID: 1251996641}
@@ -653,6 +654,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 363293256b9f164419acbee70eec3870, type: 3}
+--- !u!114 &295084210 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 316026659258478828, guid: 363293256b9f164419acbee70eec3870, type: 3}
+  m_PrefabInstance: {fileID: 295084209}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf372d961acf374da2b429b16705124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &328902546
 GameObject:
   m_ObjectHideFlags: 0
