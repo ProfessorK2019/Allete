@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class Player : MonoBehaviour,ITriggerable
+public class Player : MonoBehaviour, ITriggerable
 {
     protected PlayerInput playerInput;
     protected Vector3 initialPosition;
@@ -92,7 +92,7 @@ public class Player : MonoBehaviour,ITriggerable
         jumpTween = transform.DOJump(initialPosition, jumpPower, amountOfJump, durationOfJump)
             .SetEase(Ease.OutCubic).OnComplete(() => isMoving = false);
 
-        CameraShake.Instance.Shake();
+        // CameraShake.Instance.Shake();
         EventManager.PlayerBarrier();
     }
     protected virtual IEnumerator CheckGridSprite()
@@ -109,8 +109,11 @@ public class Player : MonoBehaviour,ITriggerable
         isSameSprite = false;
     }
     protected virtual void OnTriggerEnter2D(Collider2D other)
-    {   
-        
+    {
+        // if (other.TryGetComponent<CameraTransition>(out CameraTransition cameraTransition))
+        // {
+        //     cameraTransition.Transition();
+        // }
     }
     public virtual void SpawnParticle() => Instantiate(particlePrefab, transform.position, Quaternion.identity);
     protected virtual void OnDestroy()
@@ -120,6 +123,6 @@ public class Player : MonoBehaviour,ITriggerable
 
     public void Trigger()
     {
-        
+
     }
 }

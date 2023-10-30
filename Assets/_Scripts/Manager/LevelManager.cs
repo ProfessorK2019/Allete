@@ -16,7 +16,6 @@ public class LevelManager : MonoBehaviour
     private static int numberOfPlayers = 1;
     private static bool hasPlayerWon = false;
 
-
     private void Awake()
     {
         timeBeforeRestarting = TimeBeforeRestarting;
