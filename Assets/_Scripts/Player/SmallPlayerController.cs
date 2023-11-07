@@ -15,7 +15,6 @@ public class SmallPlayerController : Player
             EventManager.PlayerCombine();
             SpawnParticle();
 
-
             Destroy(gameObject);
             if (gameObject.GetInstanceID() > smallPlayerController.gameObject.GetInstanceID())
             {
