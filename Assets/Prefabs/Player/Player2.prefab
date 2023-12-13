@@ -151,7 +151,7 @@ Transform:
   - {fileID: 2939571934891051161}
   - {fileID: 4407479625690954157}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &2939571934953646959
 Rigidbody2D:
@@ -244,7 +244,7 @@ MonoBehaviour:
   jumpPower: 0.3
   amountOfJump: 1
   durationOfJump: 0.3
-  illegalSprite: {fileID: -4877774437544462884, guid: f347fb39890d7334395b1d4ba040e8e9, type: 3}
+  illegalSprite: {fileID: 21300000, guid: cdca514d1089fa7458a7c25dcf85ebc1, type: 3}
   particlePrefab: {fileID: 3442624501062476667, guid: d152752a98d16e248b6fef935f0d9825, type: 3}
 --- !u!114 &4407479626540663925
 MonoBehaviour:

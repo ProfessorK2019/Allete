@@ -24,12 +24,13 @@ public class Portal : MonoBehaviour
             TeleportPlayer(other.transform);
         }
     }
-    private void TeleportPlayer(Transform player)
+    private void TeleportPlayer(Transform playerTransform)
     {
         Vector3 _targetPoint = GridManager.Instance.GetGridCenterPosition(targetPortal.position);
-        player.position = _targetPoint;
-        player.gameObject.SetActive(true);
-        CameraController.Instance.ZoomOut();
+        playerTransform.position = _targetPoint;
+
+        playerTransform.gameObject.SetActive(true);
+        CameraController.Instance.ZoomIn(CameraController.Instance.SetTargetPosition(playerTransform.position));
 
     }
     private IEnumerator ScaleEffect(float duration)

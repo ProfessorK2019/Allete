@@ -12,7 +12,7 @@ public class WinningTrigger : MonoBehaviour
     public static event Action OnNextLevelLoad;
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !GameManager.Instance.IsLosing())
         {
             EventManager.PlayerWin();
 

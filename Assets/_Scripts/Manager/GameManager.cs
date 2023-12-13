@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     {
         ReadyToStart,
         Playing,
+        GameOver
     }
     private State state;
     private float readyToStartTimer = 1f;
@@ -40,4 +41,5 @@ public class GameManager : MonoBehaviour
         currentTimer = readyToStartTimer;
         state = newState;
     }
+    public bool IsLosing() => state == State.GameOver;
 }

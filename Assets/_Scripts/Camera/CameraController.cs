@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using DG.Tweening;
+using System;
 
 public class CameraController : MonoBehaviour
-{   
+{
     public static CameraController Instance;
     private Camera _camera;
     private Vector3 targetPosition;
@@ -14,12 +15,14 @@ public class CameraController : MonoBehaviour
     private bool isTransitioning = false;
     private Transform cameraLeftTrigger;
     private Transform cameraRightTrigger;
-    [SerializeField] private Tilemap tilemap;
+    private Tilemap tilemap;
+    [SerializeField] private Grid gridMap;
     [SerializeField] private Vector3Int targetCell;
     [Header("ZOOM SETTINGS")]
     [SerializeField][Range(.1f, 5f)] private float zoomOutOrthoSize;
     [SerializeField][Range(.1f, 5f)] private float zoomInOrthoSize;
     [SerializeField][Range(.1f, 1f)] private float zoomDuration;
+    [SerializeField] SupportButtonUI supportButtonUI;
 
     private void Awake()
     {
@@ -30,6 +33,7 @@ public class CameraController : MonoBehaviour
         _camera = GetComponent<Camera>();
         cameraLeftTrigger = transform?.GetChild(0);
         cameraRightTrigger = transform?.GetChild(1);
+        tilemap = gridMap.GetComponentInChildren<Tilemap>();
 
         //init required Position
         startingPosition = transform.position;
@@ -37,7 +41,15 @@ public class CameraController : MonoBehaviour
         centerPostionBetween2Room = CalculateCenterPositionBetween2Room();
 
         CameraTransition.OnCameraTransition += CameraController_OnCameraTransition;
+
+        supportButtonUI.OnMoveLeftButtonPressed += GameViewUI_OnMoveLeftButtonPressed;
+        supportButtonUI.OnMoveRightButtonPressed += GameViewUI_OnMoveRightButtonPressed;
+        supportButtonUI.OnZoomOutButtonPressed += GameViewUI_OnZoomOutButtonPressed;
+
     }
+    private void GameViewUI_OnMoveLeftButtonPressed() => ZoomIn(startingPosition);
+    private void GameViewUI_OnMoveRightButtonPressed() => ZoomIn(targetPosition);
+    private void GameViewUI_OnZoomOutButtonPressed() => ZoomOut();
 
     private void CameraController_OnCameraTransition(Vector3 direction)
     {
@@ -55,25 +67,7 @@ public class CameraController : MonoBehaviour
                             (startingPosition.y + targetPosition.y) / 2,
                             transform.position.z);
     }
-    private void Update()
-    {
-        if (!isTransitioning)
-        {
-            if (Input.GetKey(KeyCode.Z))
-            {
-                ZoomOut();
-            }
-            if (Input.GetKey(KeyCode.X))
-            {
-                ZoomIn(startingPosition);
-            }
-            if (Input.GetKey(KeyCode.C))
-            {
-                ZoomIn(targetPosition);
-            }
-        }
-    }
-    private void ZoomIn(Vector3 targetPosition)
+    public void ZoomIn(Vector3 targetPosition)
     {
         HandleZoom();
 
@@ -110,5 +104,17 @@ public class CameraController : MonoBehaviour
         cameraLeftTrigger.gameObject.SetActive(true);
         cameraRightTrigger.gameObject.SetActive(true);
     }
-    void OnDestroy() => CameraTransition.OnCameraTransition -= CameraController_OnCameraTransition;
+    public Vector3 SetTargetPosition(Vector3 targetPosition)
+    {
+        Vector3Int gridPos = gridMap.WorldToCell(targetPosition);
+        return tilemap.GetCellCenterWorld(gridPos);
+    }
+    void OnDestroy()
+    {
+        CameraTransition.OnCameraTransition -= CameraController_OnCameraTransition;
+        
+        supportButtonUI.OnMoveLeftButtonPressed -= GameViewUI_OnMoveLeftButtonPressed;
+        supportButtonUI.OnMoveRightButtonPressed -= GameViewUI_OnMoveRightButtonPressed;
+        supportButtonUI.OnZoomOutButtonPressed -= GameViewUI_OnZoomOutButtonPressed;
+    }
 }

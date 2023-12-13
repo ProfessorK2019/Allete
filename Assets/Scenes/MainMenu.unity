@@ -270,12 +270,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 134904976}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd8d97d4d635f6a42880ceec7a4b383b, type: 3}
+  m_Script: {fileID: 11500000, guid: 19235aa3f12e6b047bf4d4b640ca64ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Radius: 1
-  Time: 150
-  Points: 12
+  Time: 20
+  Points: 5
 --- !u!1 &457702151
 GameObject:
   m_ObjectHideFlags: 0

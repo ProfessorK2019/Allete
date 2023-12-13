@@ -19,7 +19,7 @@ public static class EventManager
     public static async void PlayerLose(float seconds, String sceneName)
     {
         OnPlayerLose?.Invoke();
-        GameManager.Instance.ChangeState(GameManager.State.ReadyToStart);//change state so that player cant move before transition
+        GameManager.Instance.ChangeState(GameManager.State.GameOver);//change state so that player cant move before transition
         await Task.Delay(TimeSpan.FromSeconds(seconds));//wait some delay for transition
         SceneManager.LoadScene(sceneName);
     }
