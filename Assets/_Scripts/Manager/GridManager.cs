@@ -29,6 +29,9 @@ public class GridManager : MonoBehaviour
     {
         return gridMap.GetCellCenterWorld(GetGridPosition(position));
     }    
-    
+    public Vector3 GetCenterPositionFromGridPosition(Vector3Int position)
+    {
+        return gridMap.GetCellCenterWorld(position);
+    }
 
 }

@@ -10,7 +10,7 @@ public class BigPlayerController : Player
 {
     private void Start()
     {
-        InitStartPosition();
+        // InitStartPosition();
     }
     private void InitStartPosition()
     => transform.position = GridManager.Instance.GetGridCenterPosition(transform.position);
