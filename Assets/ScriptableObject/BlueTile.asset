@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a9692e3aecb08949b7532e829dd3331, type: 3}
   m_Name: BlueTile
   m_EditorClassIdentifier: 
-  tile: {fileID: 0}
-  id: 
+  tile: {fileID: 11400000, guid: 1791f8283a5624e4385315b0dbc1be59, type: 2}
+  id: BlueTile
+  Icon: {fileID: -5261011116430946631, guid: c03120e01cc17324bb993b533170a4e2, type: 3}

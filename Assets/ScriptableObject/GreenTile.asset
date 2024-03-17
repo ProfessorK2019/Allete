@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: GreenTile
   m_EditorClassIdentifier: 
   tile: {fileID: 11400000, guid: 4f4a7d9e76538a44688d168cf60510f6, type: 2}
-  id: 
+  id: GreenTile
+  Icon: {fileID: -4877774437544462884, guid: f347fb39890d7334395b1d4ba040e8e9, type: 3}

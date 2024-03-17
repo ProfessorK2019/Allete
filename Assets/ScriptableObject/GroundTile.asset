@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tile: {fileID: 11400000, guid: 253034796f073384eb43ec89d4162f5a, type: 2}
   id: GroundTile
+  Icon: {fileID: 21300000, guid: bbc03ef9f9265104f91f5a4a8b3abdeb, type: 3}

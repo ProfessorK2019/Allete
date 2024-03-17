@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using System.Linq;
 using System.IO;
 
 public class LevelManagerMaster : MonoBehaviour
-{
+{   
     public static LevelManagerMaster Instance;
     private void Awake()
     {
@@ -15,7 +14,7 @@ public class LevelManagerMaster : MonoBehaviour
         else Destroy(this);
     }
 
-    public List<CustomTile> tiles = new List<CustomTile>();
+    public List<TileSO> tiles = new List<TileSO>();
     public Tilemap tilemap;
 
     private void Update()
@@ -42,9 +41,9 @@ public class LevelManagerMaster : MonoBehaviour
                 //get the tile on the position
                 TileBase temp = tilemap.GetTile(new Vector3Int(x, y, 0));
                 //find the temp tile in the custom tiles list
-                CustomTile temptile = tiles.Find(t => t.tile == temp);
+                TileSO temptile = tiles.Find(t => t.tile == temp);
 
-                //if there's a customtile associated with the tile
+                //if there's a TileSO associated with the tile
                 if (temptile != null)
                 {
                     //add the values to the leveldata

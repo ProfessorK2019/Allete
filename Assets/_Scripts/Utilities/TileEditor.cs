@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System;
 using System.Reflection;
 using Object = UnityEngine.Object;
-[CustomEditor(typeof(CustomTile))]
+[CustomEditor(typeof(TileSO))]
 public class TileEditor : Editor
 {
-    private CustomTile item { get { return target as CustomTile; } }
+    private TileSO item { get { return target as TileSO; } }
 
     public override Texture2D RenderStaticPreview(string assetPath, Object[] subAssets, int width, int height)
     {

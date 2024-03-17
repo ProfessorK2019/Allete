@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a9692e3aecb08949b7532e829dd3331, type: 3}
   m_Name: WinningTile
   m_EditorClassIdentifier: 
-  tile: {fileID: 0}
-  id: 
+  tile: {fileID: 11400000, guid: 37c29987310337c4ca8c6d9fa6f74684, type: 2}
+  id: WinningTile
+  Icon: {fileID: -9204583329839238041, guid: 9769490460b4e094288683f376b67b1c, type: 3}
