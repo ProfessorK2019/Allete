@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// Manager SingleTile can be drawn
@@ -28,8 +29,9 @@ public class Tile : MonoBehaviour
     void OnMouseExit()
     {
         highlightTile.SetActive(false);
-        CursorManager.Instance.ChangCursor();
+        // CursorManager.Instance.ChangCursor();
     }
 
     void OnDisable() => TileDrawer.Instance.OnTileChange -= HandleSelectedTileIndexChanged;
+
 }

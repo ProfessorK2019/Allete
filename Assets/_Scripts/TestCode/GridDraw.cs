@@ -9,7 +9,7 @@ public class GridDraw : MonoBehaviour
 {
     [SerializeField] private int width, height;
     [SerializeField] private Tile prefab;
-    private static List<Vector3> gridPosList = new List<Vector3>();
+    private static List<Vector3> drawablePosList = new List<Vector3>();
     private void Start()
     {
         DrawGridMap();
@@ -28,12 +28,12 @@ public class GridDraw : MonoBehaviour
             {
                 Vector3 position = new Vector3(x, y, 0);
                 Instantiate(prefab, position, Quaternion.identity, transform);
-                gridPosList.Add(position);
+                drawablePosList.Add(position);
                 x -= xOffset;
                 y -= yOffset;
             }
             x = 0; y = 0;
         }
     }
-    public static List<Vector3> GetGridPosList() => gridPosList;
+    public static List<Vector3> GetDrawablePosList() => drawablePosList;
 }

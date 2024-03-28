@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - SmallPlayer
+  - UnDetectedable
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Spike
   - WinningLayer
   - GridBackGroundCollider
-  - 
+  - UnDestroyable
   - 
   - 
   - 

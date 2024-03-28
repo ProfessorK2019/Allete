@@ -1,68 +1,60 @@
 {
     "tiles": [
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile",
-        "WinningTile"
+        "GroundTile",
+        "GroundTile",
+        "GroundTile",
+        "GroundTile",
+        "GroundTile",
+        "GroundTile",
+        "GroundTile",
+        "GroundTile",
+        "GroundTile"
     ],
-    "poses_x": [
-        -4,
-        -4,
-        -4,
-        -4,
-        -4,
-        -3,
-        -3,
-        -3,
-        -3,
-        -3,
-        -2,
-        -2,
-        -2,
-        -2,
-        -2,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1
+    "obstacles": [
+        "Spike"
     ],
-    "poses_y": [
-        -5,
-        -4,
-        -3,
-        -2,
-        -1,
-        -5,
-        -4,
-        -3,
-        -2,
-        -1,
-        -5,
-        -4,
-        -3,
-        -2,
-        -1,
-        -5,
-        -4,
-        -3,
-        -2,
-        -1
+    "tilePos": [
+        {
+            "x": -6,
+            "y": -3
+        },
+        {
+            "x": -5,
+            "y": -3
+        },
+        {
+            "x": -4,
+            "y": -5
+        },
+        {
+            "x": -4,
+            "y": -4
+        },
+        {
+            "x": -4,
+            "y": -3
+        },
+        {
+            "x": -4,
+            "y": -2
+        },
+        {
+            "x": -4,
+            "y": -1
+        },
+        {
+            "x": -3,
+            "y": -3
+        },
+        {
+            "x": -2,
+            "y": -3
+        }
+    ],
+    "obstaclePos": [
+        {
+            "x": -4,
+            "y": -3
+        }
     ]
 }
