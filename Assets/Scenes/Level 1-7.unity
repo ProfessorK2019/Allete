@@ -711,6 +711,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 958365587}
     m_Modifications:
+    - target: {fileID: 3125015203482246235, guid: 7031c381f5949dc4cb05472ad2975856, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.03
+      objectReference: {fileID: 0}
     - target: {fileID: 5093496854829451195, guid: 7031c381f5949dc4cb05472ad2975856, type: 3}
       propertyPath: m_Name
       value: Spike
@@ -766,6 +770,10 @@ PrefabInstance:
     - target: {fileID: 5093496856111484056, guid: 7031c381f5949dc4cb05472ad2975856, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519240430697787211, guid: 7031c381f5949dc4cb05472ad2975856, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.57
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

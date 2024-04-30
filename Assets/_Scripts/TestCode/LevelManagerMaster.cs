@@ -17,6 +17,7 @@ public class LevelManagerMaster : MonoBehaviour
     public List<TileSO> tiles = new List<TileSO>();
     public List<ObstacleSO> obstacles = new List<ObstacleSO>();
     public Tilemap tilemap;
+    [SerializeField] private GameObject winningParticlePrefab;
 
     private void Update()
     {
@@ -46,6 +47,12 @@ public class LevelManagerMaster : MonoBehaviour
                 if (currentObstacle != null)
                 {
                     string currentObjectName = currentObstacle.name.Replace("(Clone)", "");
+                    //save spawnPointPos
+                    if (currentObjectName == "SpawnPoint1" || currentObjectName == "SpawnPoint2")
+                    {
+                        levelData.spawnPointPos.Add(currentObstacle.transform.localPosition);
+                    }
+                    //save obstacle pos and id
                     ObstacleSO tempObstacle = obstacles.Find(o => o.id == currentObjectName);
                     if (tempObstacle != null)
                     {
@@ -88,24 +95,46 @@ public class LevelManagerMaster : MonoBehaviour
         //place the tiles
         for (int i = 0; i < data.tiles.Count; i++)
         {
-            tilemap.SetTile(new Vector3Int((int)data.tilePos[i].x, (int)data.tilePos[i].y, 0), tiles.Find(t => t.id == data.tiles[i]).tile);
+            tilemap.SetTile(new Vector3Int(data.tilePos[i].x, data.tilePos[i].y, 0), tiles.Find(t => t.id == data.tiles[i]).tile);
+            if (data.tiles[i] == "WinningTile")
+            {
+                Vector3Int winningTilePos = new Vector3Int(data.tilePos[i].x, data.tilePos[i].y, 0);
+                Instantiate(winningParticlePrefab, tilemap.GetCellCenterWorld(winningTilePos), Quaternion.identity);
+            }
         }
+        //place objects
         for (int i = 0; i < data.obstacles.Count; i++)
         {
-            Vector3Int obstaclePos = new Vector3Int((int)data.obstaclePos[i].x, (int)data.obstaclePos[i].y, 0);
+            Vector3Int obstaclePos = new Vector3Int(data.obstaclePos[i].x, data.obstaclePos[i].y, 0);
             GameObject obstaclePrefab = obstacles.Find(o => o.id == data.obstacles[i]).obstacle;
 
-            Instantiate(obstaclePrefab, tilemap.GetCellCenterWorld(obstaclePos), Quaternion.identity);
+            GameObject obstalce = Instantiate(obstaclePrefab, tilemap.GetCellCenterWorld(obstaclePos), Quaternion.identity);
+            //place SpawnPointPos
+            Debug.Log(obstalce.name);
+            if (obstalce.name == "Spike(Clone)")
+            {
+
+                Transform spawnPoint1 = obstalce.transform.GetChild(0);
+                Transform spawnPoint2 = obstalce.transform.GetChild(1);
+
+                spawnPoint1.localPosition = data.spawnPointPos[0];
+                spawnPoint2.localPosition = data.spawnPointPos[1];
+
+            }
         }
+
+
+
+
         Debug.Log("Level was loaded");
     }
 
     public GameObject GetObstacleAtPosition(Vector3Int pos)
     {
-        // Lấy vị trí trên tilemap
+        // Get pos on tilemap
         Vector3 worldPos = tilemap.GetCellCenterWorld(pos);
 
-        // Lấy GameObject tại vị trí trên tilemap
+        // get obstaclePos on tilemap
         RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
         if (hit.collider != null && !hit.collider.gameObject.CompareTag("UnDetectedable"))
         {
@@ -122,7 +151,7 @@ public class LevelManagerMaster : MonoBehaviour
                 return obstacle;
             }
         }
-        return null; // Trả về null nếu không tìm thấy obstacle với ID tương ứng
+        return null;
     }
 }
 
@@ -133,5 +162,6 @@ public class LevelData
     public List<string> obstacles = new List<string>();
     public List<Vector2Int> tilePos = new List<Vector2Int>();
     public List<Vector2Int> obstaclePos = new List<Vector2Int>();
+    public List<Vector3> spawnPointPos = new List<Vector3>();
 
 }

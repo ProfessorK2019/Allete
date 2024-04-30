@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5590583794450111302}
   - component: {fileID: 2362885507882208964}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HighlightTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 8597155341654760435}
   - component: {fileID: 644515334228049083}
   - component: {fileID: 4956401275935685035}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Isometric Diamond
   m_TagString: UnDetectedable
   m_Icon: {fileID: 0}

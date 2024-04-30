@@ -24,7 +24,8 @@ public class GridManager : MonoBehaviour
         gridSizeY = gridMap.cellSize.y + gridMap.cellGap.y;
     }
     public Grid GetGridMap() => gridMap;
-    private Vector3Int GetGridPosition(Vector3 position) =>gridMap.WorldToCell(position);
+    public Tilemap GetTileMap() => tileMap;
+    public Vector3Int GetGridPosition(Vector3 position) =>gridMap.WorldToCell(position);
     public Vector3 GetGridCenterPosition(Vector3 position)
     {
         return gridMap.GetCellCenterWorld(GetGridPosition(position));

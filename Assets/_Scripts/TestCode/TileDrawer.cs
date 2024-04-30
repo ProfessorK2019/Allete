@@ -11,14 +11,15 @@ public class TileDrawer : MonoBehaviour
 {
     public static TileDrawer Instance;
     public event Action<int> OnTileChange;
-
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private Camera cam;
+    [SerializeField] private GameObject spawnPointPrefab;
     private TileBase currentTile => LevelManagerMaster.Instance.tiles[selectedTileIndex].tile;
     private Dictionary<string, int> obstacleQuantities = new Dictionary<string, int>();
     private ObstacleSO currentObstacle;
     private Vector3Int mousePositionOnGrid;
     private int selectedTileIndex;
+    private string winningTile = "sprite_IsometricGrass_pink";
 
     private void Awake()
     {
@@ -51,21 +52,30 @@ public class TileDrawer : MonoBehaviour
             if (selectedTileIndex < 0) selectedTileIndex = LevelManagerMaster.Instance.tiles.Count - 1;
             OnTileChange?.Invoke(selectedTileIndex);
         }
-
-        // LogObstacleQuantities(); Use For Logging Dict
+        // LogObstacleQuantities();// Use For Logging Dict
     }
     private void OnDragEndHandler(string obstacleName)
     {
-        foreach (ObstacleSO obstacle in LevelManagerMaster.Instance.obstacles)
+        if (HasTile())//Check if has tile to draw obstacle
         {
-            if (obstacleName == obstacle.id)
+            foreach (ObstacleSO obstacle in LevelManagerMaster.Instance.obstacles)
             {
-                currentObstacle = obstacle;
-                DrawObstacle();
-                UpdateObstacleQuantity(obstacle.id, 1);
-                DragDropObjectUI.Instance.UpdateUI(obstacleQuantities);
+                if (obstacleName == obstacle.id)
+                {
+                    currentObstacle = obstacle;
+                    if (currentObstacle.id == "Spike")
+                    {
+
+                        if (CheckIfHasTileSurround(mousePositionOnGrid).Count >= 2)//Check if enough valid path or not
+                        {
+                            DrawObstacle();
+                        }
+                    }
+                    else DrawObstacle();
+                }
             }
         }
+
     }
     #region Obstacles
     private void UpdateObstacleQuantity(string obstacleID, int change)
@@ -96,7 +106,13 @@ public class TileDrawer : MonoBehaviour
 
         if (CanDraw() && !IsOccupiedPosition() && EnoughQuantity(currentObstacle))
         {
-            Instantiate(currentObstacle.obstacle, worldPos, Quaternion.identity);
+            GameObject obstacle = Instantiate(currentObstacle.obstacle, worldPos, Quaternion.identity);
+            if (currentObstacle.id == "Spike")
+            {
+                AddSpikeSpawnPoint(obstacle);//add spawnPoint to current Spike
+            }
+            UpdateObstacleQuantity(currentObstacle.id, 1);
+            DragDropObjectUI.Instance.UpdateUI(obstacleQuantities);
         }
 
     }
@@ -104,7 +120,7 @@ public class TileDrawer : MonoBehaviour
     {
         GameObject obstacleToDelete = LevelManagerMaster.Instance.GetObstacleAtPosition(mousePositionOnGrid);
 
-        if (obstacleToDelete != null)
+        if (obstacleToDelete != null && !obstacleToDelete.CompareTag("UnDeletable"))
         {
             Destroy(obstacleToDelete);
             UpdateObstacleQuantity(obstacleToDelete.name.Replace("(Clone)", ""), -1);
@@ -120,6 +136,31 @@ public class TileDrawer : MonoBehaviour
 
         return obstacleQuantities[obstacleSO.id] < obstacleSO.quantity;
     }
+
+    private void AddSpikeSpawnPoint(GameObject parentObstacle)
+    {
+        Transform spawnPoint1 = parentObstacle.transform.GetChild(0);
+        Transform spawnPoint2 = parentObstacle.transform.GetChild(1);
+
+        List<Transform> spawnPointList = new List<Transform>
+        {
+            spawnPoint1,
+            spawnPoint2
+        };
+
+        int count = 0, index = 0;
+        foreach (Vector3Int pos in CheckIfHasTileSurround(mousePositionOnGrid))
+        {
+            spawnPointList[index].position = tilemap.GetCellCenterWorld(pos);
+            index++;
+            count++;
+            if (count >= 2)
+            {
+                break;
+            }
+        }
+    }
+
     private bool IsOccupiedPosition()
     {
         GameObject existingObject = LevelManagerMaster.Instance.GetObstacleAtPosition(mousePositionOnGrid);
@@ -129,11 +170,40 @@ public class TileDrawer : MonoBehaviour
     #region Tiles
     private void DrawTile()
     {
-        if (CanDraw()) tilemap.SetTile(mousePositionOnGrid, currentTile);
+        if (CanDraw())
+        {
+            if (LevelManagerMaster.Instance.tiles[selectedTileIndex].id == "WinningTile" && CheckIfHasWinningTile())
+            {
+                return;
+            }
+            tilemap.SetTile(mousePositionOnGrid, currentTile);
+        }
+
     }
     private void DeleteTile()
     {
         tilemap.SetTile(mousePositionOnGrid, null);
+    }
+    private TileBase HasTile()
+    {
+        return tilemap.GetTile(mousePositionOnGrid);
+    }
+    private List<Vector3Int> CheckIfHasTileSurround(Vector3Int pos)
+    {
+        Vector3Int[] directions = { Vector3Int.up, Vector3Int.down, Vector3Int.left, Vector3Int.right };
+        List<Vector3Int> validPos = new List<Vector3Int>();
+        foreach (Vector3Int direction in directions)
+        {
+            Vector3Int targetPos = pos + direction;
+
+            if (tilemap.GetTile(targetPos) != null)
+            {
+
+                validPos.Add(targetPos);
+
+            }
+        }
+        return validPos;
     }
     #endregion
     #region others Func
@@ -150,6 +220,20 @@ public class TileDrawer : MonoBehaviour
 
             if (drawableTilePos == tilePos)
             {
+                return true;
+            }
+        }
+        return false;
+    }
+    private bool CheckIfHasWinningTile()
+    {
+        foreach (Vector3 drawablePos in GridDraw.GetDrawablePosList())//Check if tile can draw or not
+        {
+            Vector3Int drawableTilePos = tilemap.WorldToCell(drawablePos);
+
+            if (tilemap.GetTile(drawableTilePos) != null && tilemap.GetTile(drawableTilePos).name == winningTile)
+            {
+
                 return true;
             }
         }

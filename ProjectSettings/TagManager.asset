@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SmallPlayer
   - UnDetectedable
+  - UnDeletable
   layers:
   - Default
   - TransparentFX
