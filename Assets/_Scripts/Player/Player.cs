@@ -63,7 +63,7 @@ public class Player : MonoBehaviour, ITriggerable
         Vector3.Distance(transform.position, targetPosition),
         tileLayer);
         if (hit.collider == null) //not detected collider
-        {
+        {   
             StartCoroutine(CheckGridSprite());
             if (!isSameSprite)
             {
@@ -74,7 +74,7 @@ public class Player : MonoBehaviour, ITriggerable
             }
         }
         else // detected collider
-        {
+        {   
             StartCoroutine(StopJumpAfterDelay());
         }
     }
@@ -98,7 +98,7 @@ public class Player : MonoBehaviour, ITriggerable
     protected virtual IEnumerator CheckGridSprite()
     {
         Vector3Int gridPos = GridManager.Instance.GetGridMap().WorldToCell(targetPosition);
-        Sprite gridSprite = GridManager.Instance.tileMap.GetSprite(gridPos);
+        Sprite gridSprite = GridManager.Instance.GetTileMap(gridPos).GetSprite(gridPos);
         if (illegalSprite.name == gridSprite.name)
         {
             isSameSprite = true;

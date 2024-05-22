@@ -9,7 +9,9 @@ public static class Loader
     {
         MainMenuScene,
         LoadingScene,
-        Level1
+        Level1,
+        LevelEditor,
+        RandomLevel,
     }
     private static Scene targetScene;
     public static void Load(Scene scene)

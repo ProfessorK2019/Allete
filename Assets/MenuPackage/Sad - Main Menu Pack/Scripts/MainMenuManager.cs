@@ -38,6 +38,8 @@ namespace GabrielBissonnette.SAD
         [SerializeField] string play = "Play";
         [SerializeField] string settings = "Options";
         [SerializeField] string quit = "Quit";
+        [SerializeField] string extra = "Extra";
+
 
         [Header("Audio")]
         [SerializeField] bool customSoundtrack;
@@ -56,6 +58,8 @@ namespace GabrielBissonnette.SAD
         [SerializeField] TextMeshProUGUI homePanel_text_play;
         [SerializeField] TextMeshProUGUI homePanel_text_options;
         [SerializeField] TextMeshProUGUI homePanel_text_quit;
+        [SerializeField] TextMeshProUGUI homePanel_text_extra;
+
 
         [Space(10)] [SerializeField] Sprite buttonRounded;
         [SerializeField] Sprite buttonRoundedOutlined;
@@ -109,7 +113,14 @@ namespace GabrielBissonnette.SAD
             // Scene Load
             Loader.Load(Loader.Scene.Level1);
         }
-
+        public void LoadCustomMapScene()
+        {
+            Loader.Load(Loader.Scene.LevelEditor);
+        }
+        public void LoadRandomMapScene()
+        {
+            Loader.Load(Loader.Scene.RandomLevel);
+        }
         public void Quit()
         {
             Application.Quit();
@@ -292,6 +303,8 @@ namespace GabrielBissonnette.SAD
 
             if (homePanel_text_quit != null)
                 homePanel_text_quit.text = quit;
+            if (homePanel_text_extra != null)
+                homePanel_text_extra.text = extra;
         }
 
         // Updates every time the inspector script is refreshed

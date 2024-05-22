@@ -7,7 +7,6 @@ public class CameraMoving : MonoBehaviour
 {
     //Assignables
     private new Transform transform;
-
     //Effect
     [Range(0.1f, 10f)][SerializeField] private float Radius = 1f;
     [Range(0.1f, 600)][SerializeField] private float Time = 15f;
@@ -15,7 +14,7 @@ public class CameraMoving : MonoBehaviour
     private Vector3[] path;
 
     private void Awake()
-    {
+    {   
         transform = GetComponent<Transform>();
         path = new Vector3[Points];
         for (int _i = 0; _i < Points; _i++)

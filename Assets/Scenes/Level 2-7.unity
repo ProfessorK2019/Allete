@@ -5693,6 +5693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winningExplosion: {fileID: 563721345}
   winningParticle: {fileID: 44013002}
+  nextSceneName: EndGame
 --- !u!61 &1153852011
 BoxCollider2D:
   m_ObjectHideFlags: 0

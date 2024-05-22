@@ -27,6 +27,22 @@ public class LevelManager : MonoBehaviour
         EventManager.OnPlayerCombine += () => numberOfPlayers = 1;
         EventManager.OnPlayerSplit += () => numberOfPlayers = 2;
     }
+    private void OnEnable()
+    {
+        RandomMapManager.OnRandomDone += RandomMapManager_OnRandomDone;
+    }
+
+    private void OnDisable()
+    {
+        RandomMapManager.OnRandomDone -= RandomMapManager_OnRandomDone;
+    }
+
+    private void RandomMapManager_OnRandomDone(int step)
+    {   
+        PlayerMovesAllowed = step;
+        playerMovesRemaining = PlayerMovesAllowed;
+    }
+
     private static void UpdatePlayerStep()
     {
         playerMovesRemaining -= 1 / (float)numberOfPlayers;

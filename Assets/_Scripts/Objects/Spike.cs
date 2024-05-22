@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -8,11 +5,13 @@ public class Spike : MonoBehaviour
 {
     private Transform[] spawnPlayerPos = new Transform[2];
     [SerializeField] private GameObject smallPlayerPrefab;
-    private void Start()
+    private void Awake()
     {
         spawnPlayerPos[0] = transform.Find("SpawnPoint1");
         spawnPlayerPos[1] = transform.Find("SpawnPoint2");
-
+    }
+    private void Start()
+    {   
         spawnPlayerPos[0].transform.position = GridManager.Instance.GetGridCenterPosition(spawnPlayerPos[0].position);
         spawnPlayerPos[1].transform.position = GridManager.Instance.GetGridCenterPosition(spawnPlayerPos[1].position);
 

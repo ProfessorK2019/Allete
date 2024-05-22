@@ -1,8 +1,6 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using DG.Tweening;
-using UnityEngine.UI;
 using System.Threading.Tasks;
 using System;
 

@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         currentTimer = readyToStartTimer;
     }
     private void Update()
-    {
+    {   
         switch (state)
         {
             case State.ReadyToStart:

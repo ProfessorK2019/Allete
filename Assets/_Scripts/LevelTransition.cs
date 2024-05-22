@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelTransition : MonoBehaviour
 {
@@ -13,6 +9,8 @@ public class LevelTransition : MonoBehaviour
         EventManager.OnPlayerWin += StartTransition;
 
         GameViewUI.OnRestart += StartTransition;
+        PauseUI.OnReturnMenu += StartTransition;
+
         WinningTrigger.OnNextLevelLoad += StartTransition;
     }
 
@@ -22,6 +20,8 @@ public class LevelTransition : MonoBehaviour
         EventManager.OnPlayerWin -= StartTransition;
         
         GameViewUI.OnRestart -= StartTransition;
+        PauseUI.OnReturnMenu -= StartTransition;
+
         WinningTrigger.OnNextLevelLoad -= StartTransition;
     }
 

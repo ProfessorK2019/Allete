@@ -9,6 +9,7 @@ public class WinningTrigger : MonoBehaviour
 {
     [SerializeField] private ParticleSystem winningExplosion;
     [SerializeField] private ParticleSystem winningParticle;
+    [SerializeField] private string nextSceneName; 
     public static event Action OnNextLevelLoad;
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -26,10 +27,7 @@ public class WinningTrigger : MonoBehaviour
         OnNextLevelLoad?.Invoke();
         await Task.Delay(TimeSpan.FromSeconds(LevelManager.GetTimeBeforeRestart()));
 
-        Scene currentScene = SceneManager.GetActiveScene();
-        int sceneIndex = currentScene.buildIndex;
-
-        SceneManager.LoadScene(sceneIndex + 1);
+        SceneManager.LoadScene(nextSceneName);
     }
 
 }

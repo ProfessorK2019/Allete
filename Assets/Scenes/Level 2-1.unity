@@ -2689,7 +2689,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1225762684
 Transform:
   m_ObjectHideFlags: 0
@@ -3426,6 +3426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winningExplosion: {fileID: 1698255900}
   winningParticle: {fileID: 865752438}
+  nextSceneName: Level 2-2
 --- !u!61 &1845520949
 BoxCollider2D:
   m_ObjectHideFlags: 0
