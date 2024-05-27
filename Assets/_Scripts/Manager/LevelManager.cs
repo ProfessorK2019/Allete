@@ -38,7 +38,7 @@ public class LevelManager : MonoBehaviour
     }
 
     private void RandomMapManager_OnRandomDone(int step)
-    {   
+    {
         PlayerMovesAllowed = step;
         playerMovesRemaining = PlayerMovesAllowed;
     }
@@ -51,6 +51,7 @@ public class LevelManager : MonoBehaviour
         EventManager.PlayerLose(timeBeforeRestarting, GetSceneName());
     }
     public static int GetMovesRemaining() => Mathf.Max(0, (int)playerMovesRemaining);
+    public static void SetMovesRemaining(int moves) => playerMovesRemaining = Mathf.Max(0, moves);
     public static String GetSceneName() => SceneManager.GetActiveScene().name;
     public static float GetTimeBeforeRestart() => timeBeforeRestarting;
     private void OnDestroy()

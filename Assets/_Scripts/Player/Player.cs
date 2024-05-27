@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, ITriggerable
 {
@@ -63,7 +64,7 @@ public class Player : MonoBehaviour, ITriggerable
         Vector3.Distance(transform.position, targetPosition),
         tileLayer);
         if (hit.collider == null) //not detected collider
-        {   
+        {
             StartCoroutine(CheckGridSprite());
             if (!isSameSprite)
             {
@@ -74,7 +75,12 @@ public class Player : MonoBehaviour, ITriggerable
             }
         }
         else // detected collider
-        {   
+        {
+            Scene currentScene = SceneManager.GetActiveScene();
+            if (currentScene.name == "Level1")
+            {
+                TutorialManager.Instance.TriggerStepTutorial();
+            }
             StartCoroutine(StopJumpAfterDelay());
         }
     }
