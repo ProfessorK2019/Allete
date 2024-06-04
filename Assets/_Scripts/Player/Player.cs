@@ -71,7 +71,7 @@ public class Player : MonoBehaviour, ITriggerable
                 EventManager.PlayerMove();
                 jumpTween = transform.DOJump(targetPosition, jumpPower, amountOfJump, durationOfJump)
                     .SetEase(Ease.OutCubic)
-                    .OnComplete(() => isMoving = false);
+                    .OnComplete(() => Invoke("SetIsMoving", 0.05f));
             }
         }
         else // detected collider
@@ -98,7 +98,6 @@ public class Player : MonoBehaviour, ITriggerable
         jumpTween = transform.DOJump(initialPosition, jumpPower, amountOfJump, durationOfJump)
             .SetEase(Ease.OutCubic).OnComplete(() => isMoving = false);
 
-        // CameraShake.Instance.Shake();
         EventManager.PlayerBarrier();
     }
     protected virtual IEnumerator CheckGridSprite()
@@ -111,22 +110,18 @@ public class Player : MonoBehaviour, ITriggerable
             StartCoroutine(StopJumpAfterDelay());
         }
         yield return new WaitForSeconds(0.1f);
-        // isMoving = false;
         isSameSprite = false;
     }
-    protected virtual void OnTriggerEnter2D(Collider2D other)
-    {
-        // if (other.TryGetComponent<CameraTransition>(out CameraTransition cameraTransition))
-        // {
-        //     cameraTransition.Transition();
-        // }
-    }
+    private void SetIsMoving() => isMoving = false;
     public virtual void SpawnParticle() => Instantiate(particlePrefab, transform.position, Quaternion.identity);
     protected virtual void OnDestroy()
     {
         jumpTween.Kill();
     }
+    protected virtual void OnTriggerEnter2D(Collider2D other)
+    {
 
+    }
     public void Trigger()
     {
 

@@ -17,7 +17,8 @@ public class MapUnlockNotification : MonoBehaviour
         transform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.5f).SetEase(Ease.OutBack);
     }
     public void LoadMap2()
-    {   
+    {
+        EventManager.PlayerWin();
         Loader.Load("Level 2-1");
     }
 }

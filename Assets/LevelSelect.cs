@@ -13,6 +13,7 @@ public class LevelSelect : MonoBehaviour
     private void Start()
     {
         SetProgressText();
+        CheckProgress();
     }
     private void SetProgressText()
     {
