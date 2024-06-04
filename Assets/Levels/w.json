@@ -1,0 +1,68 @@
+{
+    "tiles": [
+        "GroundTile",
+        "GroundTile",
+        "GroundTile",
+        "GroundTile",
+        "GroundTile",
+        "GroundTile",
+        "GroundTile"
+    ],
+    "obstacles": [
+        "Spike",
+        "Player"
+    ],
+    "tilePos": [
+        {
+            "x": -6,
+            "y": -3
+        },
+        {
+            "x": -5,
+            "y": -4
+        },
+        {
+            "x": -5,
+            "y": -3
+        },
+        {
+            "x": -5,
+            "y": -2
+        },
+        {
+            "x": -4,
+            "y": -3
+        },
+        {
+            "x": -3,
+            "y": -3
+        },
+        {
+            "x": -2,
+            "y": -3
+        }
+    ],
+    "obstaclePos": [
+        {
+            "x": -5,
+            "y": -3
+        },
+        {
+            "x": -2,
+            "y": -3
+        }
+    ],
+    "spawnPointPos": [
+        {
+            "x": 0.6100000143051148,
+            "y": -0.34999990463256838,
+            "z": 0.0
+        },
+        {
+            "x": -0.6100000143051148,
+            "y": 0.3500000238418579,
+            "z": 0.0
+        }
+    ],
+    "numberOfStepData": 5
+}

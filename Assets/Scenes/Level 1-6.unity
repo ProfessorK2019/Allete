@@ -595,6 +595,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1841517304820500235, guid: daef3bdcf18b6e048b6ec431493b6f4f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -885,6 +889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeBeforeRestarting: 1
   PlayerMovesAllowed: 18
+  currentLevelIndex: 6
 --- !u!4 &1290770946
 Transform:
   m_ObjectHideFlags: 0

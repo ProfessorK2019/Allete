@@ -14,27 +14,27 @@ namespace GabrielBissonnette.SAD
         public enum Intro { OneLiner_FadingMenu, FadingMenu, MenuOnly };
 
         [Header("Buttons")]
-        [Space(10)] [Tooltip("Enable to change the texts manually.")] public bool manualModeButtons;
+        [Space(10)][Tooltip("Enable to change the texts manually.")] public bool manualModeButtons;
         [Tooltip("Choose a type of intro.")] public Buttons buttonsAppearance;
         public enum Buttons { Rounded, Rounded_Outlined, Rounded_AlwaysFilled, Squared, Squared_Outlined, Squared_AlwaysFilled };
 
         [Header("Colors")]
-        [Space(10)] [Tooltip("Enable to change the colors manually.")] public bool manualModeColor;
+        [Space(10)][Tooltip("Enable to change the colors manually.")] public bool manualModeColor;
         public Color32 mainColor;
         public float alpha_godrays = 0.13f;
         public float alpha_particleSlowNormal = 0.5f;
         public float alpha_particleHuge = 0.05f;
 
         [Header("Intro Sequence")]
-        [Space(10)] [Tooltip("Enable to change the text manually.")] public bool manualModeIntroText;
+        [Space(10)][Tooltip("Enable to change the text manually.")] public bool manualModeIntroText;
         [SerializeField] string introTextContent = "It is never too late to be who you might have been.";
 
         [Header("Scene")]
-        [Space(10)] [SerializeField] string sceneToLoad;
+        [Space(10)][SerializeField] string sceneToLoad;
         [SerializeField] float delayBeforeLoading = 3f;
 
         [Header("Home Panel")]
-        [Space(10)] [Tooltip("Enable to change the texts manually.")] public bool manualModeTexts;
+        [Space(10)][Tooltip("Enable to change the texts manually.")] public bool manualModeTexts;
         [SerializeField] string play = "Play";
         [SerializeField] string settings = "Options";
         [SerializeField] string quit = "Quit";
@@ -53,20 +53,19 @@ namespace GabrielBissonnette.SAD
         [Header("---- References")]
         [Space(50)] public Animator main_animator;
         [SerializeField] Image background_sprite;
-        [Space(10)] [SerializeField] TextMeshProUGUI introText;
+        [Space(10)][SerializeField] TextMeshProUGUI introText;
         public CanvasGroup homePanel;
         [SerializeField] TextMeshProUGUI homePanel_text_play;
         [SerializeField] TextMeshProUGUI homePanel_text_options;
         [SerializeField] TextMeshProUGUI homePanel_text_quit;
         [SerializeField] TextMeshProUGUI homePanel_text_extra;
 
-
-        [Space(10)] [SerializeField] Sprite buttonRounded;
+        [Space(10)][SerializeField] Sprite buttonRounded;
         [SerializeField] Sprite buttonRoundedOutlined;
         [SerializeField] Sprite buttonSquared;
         [SerializeField] Sprite buttonSquaredOutlined;
 
-        [Space(10)] [SerializeField] ParticleSystem[] particles;
+        [Space(10)][SerializeField] ParticleSystem[] particles;
         [SerializeField] Image[] godrays_sprite;
         [SerializeField] Image[] buttons;
         [SerializeField] Animator[] buttonsAnimators;
@@ -74,7 +73,7 @@ namespace GabrielBissonnette.SAD
         [SerializeField] RuntimeAnimatorController buttonsAnimator_lightText;
         [SerializeField] RuntimeAnimatorController buttonsAnimator_alwaysFilled;
 
-        [Space(10)] [SerializeField] AudioSource audioSource;
+        [Space(10)][SerializeField] AudioSource audioSource;
         [SerializeField] AudioSource audioSourceSountrack;
         [SerializeField] AudioClip demo_soundtrack;
         [SerializeField] AudioClip demo_soundtrack_shorter;
@@ -94,6 +93,7 @@ namespace GabrielBissonnette.SAD
                 UpdateButtons();
 
             SetStartVolume();
+
         }
 
         #region Levels
@@ -111,15 +111,19 @@ namespace GabrielBissonnette.SAD
             yield return new WaitForSeconds(delayBeforeLoading);
 
             // Scene Load
-            Loader.Load(Loader.Scene.Level1);
+            Loader.Load("IntroGame");
         }
         public void LoadCustomMapScene()
         {
-            Loader.Load(Loader.Scene.LevelEditor);
+            Loader.Load("LevelEditor");
         }
         public void LoadRandomMapScene()
         {
-            Loader.Load(Loader.Scene.RandomLevel);
+            Loader.Load("RandomLevel");
+        }
+        public void LoadAvailableMapScene()
+        {
+            Loader.Load("CustomLevel");
         }
         public void Quit()
         {
@@ -188,7 +192,7 @@ namespace GabrielBissonnette.SAD
                     main_animator.SetTrigger("OneLiner_FadingMenu");
 
                     // Soundtracks
-                    if(customSoundtrack)
+                    if (customSoundtrack)
                     {
                         audioSourceSountrack.clip = customSoundtrackAudio;
                         audioSourceSountrack.Play();
@@ -344,7 +348,7 @@ namespace GabrielBissonnette.SAD
                     // Apply the new color to the godrays
                     for (int i = 0; i < particles.Length; i++)
                     {
-                        if(i != 2)
+                        if (i != 2)
                         {
                             var main1 = particles[i].main;
                             main1.startColor = new ParticleSystem.MinMaxGradient(newColor_slowNormal);
@@ -371,7 +375,7 @@ namespace GabrielBissonnette.SAD
                 // Prewarm the particles
                 for (int i = 0; i < particles.Length; i++)
                 {
-                    if(introState == Intro.MenuOnly)
+                    if (introState == Intro.MenuOnly)
                     {
                         var main1 = particles[i].main;
                         main1.prewarm = true;

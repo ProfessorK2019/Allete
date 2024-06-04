@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winningExplosion: {fileID: 7800879312906893331}
   winningParticle: {fileID: 9112851545338850556}
+  nextSceneName: CustomLevel
 --- !u!1001 &2894296401988721344
 PrefabInstance:
   m_ObjectHideFlags: 0

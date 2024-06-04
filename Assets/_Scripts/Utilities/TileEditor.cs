@@ -1,8 +1,11 @@
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
 using System;
 using System.Reflection;
 using Object = UnityEngine.Object;
+
 [CustomEditor(typeof(TileSO))]
 public class TileEditor : Editor
 {
@@ -18,7 +21,7 @@ public class TileEditor : Editor
                 MethodInfo method = t.GetMethod("RenderStaticPreview", new[] { typeof(Sprite), typeof(Color), typeof(int), typeof(int) });
                 if (method != null)
                 {
-                    object ret = method.Invoke("RenderStaticPreview", new object[] { item.Icon, Color.white, width, height });
+                    object ret = method.Invoke(null, new object[] { item.Icon, Color.white, width, height });
                     if (ret is Texture2D)
                         return ret as Texture2D;
                 }
@@ -48,3 +51,4 @@ public class TileEditor : Editor
         return null;
     }
 }
+#endif

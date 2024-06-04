@@ -121,7 +121,7 @@ public class TileDrawer : MonoBehaviour
         GameObject obstacleToDelete = LevelManagerMaster.Instance.GetObstacleAtPosition(mousePositionOnGrid);
 
         if (obstacleToDelete != null && !obstacleToDelete.CompareTag("UnDeletable"))
-        {
+        {   
             Destroy(obstacleToDelete);
             UpdateObstacleQuantity(obstacleToDelete.name.Replace("(Clone)", ""), -1);
             DragDropObjectUI.Instance.UpdateUI(obstacleQuantities);

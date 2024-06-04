@@ -12,6 +12,8 @@ public class LevelTransition : MonoBehaviour
         PauseUI.OnReturnMenu += StartTransition;
 
         WinningTrigger.OnNextLevelLoad += StartTransition;
+
+        LevelListUI.OnStartCustomLevel += StartTransition;
     }
 
     private void OnDestroy()
@@ -23,6 +25,8 @@ public class LevelTransition : MonoBehaviour
         PauseUI.OnReturnMenu -= StartTransition;
 
         WinningTrigger.OnNextLevelLoad -= StartTransition;
+
+        LevelListUI.OnStartCustomLevel -= StartTransition;
     }
 
     private void StartTransition()

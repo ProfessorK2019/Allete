@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
     //Moves
     [Range(0f, 3f)][SerializeField] private float TimeBeforeRestarting = 0.5f;
     [Range(1, 100)][SerializeField] private int PlayerMovesAllowed;
+    [SerializeField] private int currentLevelIndex;
     private static float timeBeforeRestarting;
     private static float playerMovesRemaining;
     //Players
@@ -27,6 +28,16 @@ public class LevelManager : MonoBehaviour
         EventManager.OnPlayerCombine += () => numberOfPlayers = 1;
         EventManager.OnPlayerSplit += () => numberOfPlayers = 2;
     }
+    void Start()
+    {
+        EventManager.OnPlayerWin += EventManager_OnPlayerWin;
+    }
+
+    private void EventManager_OnPlayerWin()
+    {
+        CompleteLevel();
+    }
+
     private void OnEnable()
     {
         RandomMapManager.OnRandomDone += RandomMapManager_OnRandomDone;
@@ -37,6 +48,13 @@ public class LevelManager : MonoBehaviour
         RandomMapManager.OnRandomDone -= RandomMapManager_OnRandomDone;
     }
 
+    public void CompleteLevel()
+    {
+        PlayerPrefs.SetInt("Level" + currentLevelIndex, 1);
+        PlayerPrefs.SetInt("LastCompletedLevel", currentLevelIndex);
+        PlayerPrefs.Save();
+
+    }
     private void RandomMapManager_OnRandomDone(int step)
     {
         PlayerMovesAllowed = step;
@@ -45,9 +63,10 @@ public class LevelManager : MonoBehaviour
 
     private static void UpdatePlayerStep()
     {
+        if (hasPlayerWon) return;
+
         playerMovesRemaining -= 1 / (float)numberOfPlayers;
-        if (playerMovesRemaining > 0 || hasPlayerWon)
-            return;
+        if (playerMovesRemaining > 0) return;
         EventManager.PlayerLose(timeBeforeRestarting, GetSceneName());
     }
     public static int GetMovesRemaining() => Mathf.Max(0, (int)playerMovesRemaining);

@@ -5,8 +5,8 @@ using UnityEngine;
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance;
+    [SerializeField] private GameObject controlTutorial;
     [SerializeField] private GameObject destinateTutorial;
-
     [SerializeField] private GameObject stepTutorial;
 
     void Awake()
@@ -19,12 +19,16 @@ public class TutorialManager : MonoBehaviour
     }
     private void StartTutorial()
     {
-        destinateTutorial.SetActive(true);
+        controlTutorial.SetActive(true);
         Time.timeScale = 0f;
     }
     public void ResetTimeScale()
     {
         Time.timeScale = 1f;
+    }
+    public void TriggerDestinationTutorial()
+    {
+        destinateTutorial.SetActive(true);
     }
     public void TriggerStepTutorial()
     {

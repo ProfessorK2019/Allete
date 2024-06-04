@@ -97,7 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f96921213afc945a1dcb28f1d0af77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSceneName: LevelEditor
 --- !u!1 &3125015203549036464
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,7 +309,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.014973827, y: 0.0010288842}
+  m_Offset: {x: -0.014973827, y: 0.028992213}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.25}
@@ -321,7 +320,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.19353606, y: 0.17226502}
+  m_Size: {x: 0.19353606, y: 0.22819169}
   m_EdgeRadius: 0
 --- !u!114 &5093496854829451199
 MonoBehaviour:
@@ -525,4 +524,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f96921213afc945a1dcb28f1d0af77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSceneName: LevelEditor

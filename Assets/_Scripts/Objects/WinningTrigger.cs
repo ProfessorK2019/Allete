@@ -9,17 +9,25 @@ public class WinningTrigger : MonoBehaviour
 {
     [SerializeField] private ParticleSystem winningExplosion;
     [SerializeField] private ParticleSystem winningParticle;
-    [SerializeField] private string nextSceneName; 
+    [SerializeField] private string nextSceneName;
     public static event Action OnNextLevelLoad;
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player" && !GameManager.Instance.IsLosing())
         {
-            EventManager.PlayerWin();
 
             Destroy(winningParticle);
             winningExplosion.Play();
-            LoadNextLevel();
+
+            if (SceneManager.GetActiveScene().name == "Level 1-7")
+            {
+                MapUnlockNotification.Instance.Invoke("TriggerMapUnlockNotification", 2f);
+            }
+            else
+            {
+                EventManager.PlayerWin();
+                LoadNextLevel();
+            }
         }
     }
     public async void LoadNextLevel()

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseUI : MonoBehaviour
-{   
+{
     public static event Action OnReturnMenu;
     [SerializeField] private float popupDuration = 0.5f;
     [SerializeField] private Ease popupEase = Ease.OutBack;
@@ -45,6 +45,6 @@ public class PauseUI : MonoBehaviour
     {
         OnReturnMenu?.Invoke();
         await Task.Delay(TimeSpan.FromSeconds(LevelManager.GetTimeBeforeRestart()));
-        SceneManager.LoadScene("MainMenu");
+        Loader.Load("MainMenu");
     }
 }

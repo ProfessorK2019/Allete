@@ -352,7 +352,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2894296402985264512, guid: a0f519640fe60fa4ab9066b74afc08bc, type: 3}
       propertyPath: nextSceneName
-      value: EndGame
+      value: RandomLevel
       objectReference: {fileID: 0}
     - target: {fileID: 2894296402985264518, guid: a0f519640fe60fa4ab9066b74afc08bc, type: 3}
       propertyPath: m_Name

@@ -19,21 +19,27 @@ public class LevelManagerMaster : MonoBehaviour
     public Tilemap tilemap;
     [SerializeField] private GameObject winningParticlePrefab;
 
+    // Danh sách để lưu trữ các obstacle hiện tại
+    private List<GameObject> currentObstacleList = new List<GameObject>();
+
     private void Update()
     {
         //save level when pressing Ctrl + A
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.A)) Savelevel();
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.A)) SaveLevel("a", 10);
         //load level when pressing Ctrl + L
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L)) LoadLevel();
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L)) LoadLevel("a");
     }
 
-    private void Savelevel()
+    public void SaveLevel(string levelName, int stepRequired)
     {
         //get the bounds of the tilemap
         BoundsInt bounds = tilemap.cellBounds;
 
         //create a new leveldata
         LevelData levelData = new LevelData();
+
+        //set step
+        levelData.numberOfStepData = stepRequired;
 
         //loop trougth the bounds of the tilemap
         for (int x = bounds.min.x; x < bounds.max.x; x++)
@@ -58,9 +64,7 @@ public class LevelManagerMaster : MonoBehaviour
                     {
                         levelData.obstacles.Add(tempObstacle.id);
                         levelData.obstaclePos.Add(pos);
-
                     }
-
                 }
                 //get the tile on the position
                 TileBase currentTile = tilemap.GetTile(new Vector3Int(x, y, 0));
@@ -77,56 +81,73 @@ public class LevelManagerMaster : MonoBehaviour
 
         //save the data as a json
         string json = JsonUtility.ToJson(levelData, true);
-        File.WriteAllText(Application.dataPath + "/testLevel.json", json);
+        string path = Application.dataPath + "/Levels/" + levelName + ".json";
+        // File.WriteAllText(Application.dataPath + "/testLevel.json", json);
+        File.WriteAllText(path, json);
 
         //debug
         Debug.Log("Level was saved");
     }
 
-    private void LoadLevel()
+    public void LoadLevel(string levelName)
     {
-        //load the json file to a leveldata
-        string json = File.ReadAllText(Application.dataPath + "/testLevel.json");
-        LevelData data = JsonUtility.FromJson<LevelData>(json);
-
-        //clear the tilemap
-        tilemap.ClearAllTiles();
-
-        //place the tiles
-        for (int i = 0; i < data.tiles.Count; i++)
+        string path = Application.dataPath + "/Levels/" + levelName + ".json";
+        if (File.Exists(path))
         {
-            tilemap.SetTile(new Vector3Int(data.tilePos[i].x, data.tilePos[i].y, 0), tiles.Find(t => t.id == data.tiles[i]).tile);
-            if (data.tiles[i] == "WinningTile")
-            {
-                Vector3Int winningTilePos = new Vector3Int(data.tilePos[i].x, data.tilePos[i].y, 0);
-                Instantiate(winningParticlePrefab, tilemap.GetCellCenterWorld(winningTilePos), Quaternion.identity);
+            string json = File.ReadAllText(path);
+            LevelData data = JsonUtility.FromJson<LevelData>(json);
+
+            // Clear the map
+            tilemap.ClearAllTiles();
+
+            foreach (GameObject obstacle in currentObstacleList)
+            {   
+                Debug.Log(obstacle.name);
+                Destroy(obstacle);
             }
+            currentObstacleList.Clear();
+
+            //Set step
+            int steps = data.numberOfStepData;
+            LevelManager.SetMovesRemaining(steps);
+
+            // Place the tiles
+            for (int i = 0; i < data.tiles.Count; i++)
+            {
+                tilemap.SetTile(new Vector3Int(data.tilePos[i].x, data.tilePos[i].y, 0), tiles.Find(t => t.id == data.tiles[i]).tile);
+                if (data.tiles[i] == "WinningTile")
+                {
+                    Vector3Int winningTilePos = new Vector3Int(data.tilePos[i].x, data.tilePos[i].y, 0);
+                    Instantiate(winningParticlePrefab, tilemap.GetCellCenterWorld(winningTilePos), Quaternion.identity);
+                }
+            }
+
+            // Place objects
+            for (int i = 0; i < data.obstacles.Count; i++)
+            {
+                Vector3Int obstaclePos = new Vector3Int(data.obstaclePos[i].x, data.obstaclePos[i].y, 0);
+                GameObject obstaclePrefab = obstacles.Find(o => o.id == data.obstacles[i]).obstacle;
+
+                GameObject obstacle = Instantiate(obstaclePrefab, tilemap.GetCellCenterWorld(obstaclePos), Quaternion.identity);
+                currentObstacleList.Add(obstacle);//add to obstacleList to delete
+
+                // Place SpawnPointPos
+                if (obstacle.name == "Spike(Clone)")
+                {
+                    Transform spawnPoint1 = obstacle.transform.GetChild(0);
+                    Transform spawnPoint2 = obstacle.transform.GetChild(1);
+
+                    spawnPoint1.localPosition = data.spawnPointPos[0];
+                    spawnPoint2.localPosition = data.spawnPointPos[1];
+                }
+            }
+
+            Debug.Log("Level was loaded");
         }
-        //place objects
-        for (int i = 0; i < data.obstacles.Count; i++)
+        else
         {
-            Vector3Int obstaclePos = new Vector3Int(data.obstaclePos[i].x, data.obstaclePos[i].y, 0);
-            GameObject obstaclePrefab = obstacles.Find(o => o.id == data.obstacles[i]).obstacle;
-
-            GameObject obstalce = Instantiate(obstaclePrefab, tilemap.GetCellCenterWorld(obstaclePos), Quaternion.identity);
-            //place SpawnPointPos
-            Debug.Log(obstalce.name);
-            if (obstalce.name == "Spike(Clone)")
-            {
-
-                Transform spawnPoint1 = obstalce.transform.GetChild(0);
-                Transform spawnPoint2 = obstalce.transform.GetChild(1);
-
-                spawnPoint1.localPosition = data.spawnPointPos[0];
-                spawnPoint2.localPosition = data.spawnPointPos[1];
-
-            }
+            Debug.LogWarning("Level file not found: " + path);
         }
-
-
-
-
-        Debug.Log("Level was loaded");
     }
 
     public GameObject GetObstacleAtPosition(Vector3Int pos)
@@ -155,7 +176,6 @@ public class LevelManagerMaster : MonoBehaviour
     }
 }
 
-
 public class LevelData
 {
     public List<string> tiles = new List<string>();
@@ -163,5 +183,5 @@ public class LevelData
     public List<Vector2Int> tilePos = new List<Vector2Int>();
     public List<Vector2Int> obstaclePos = new List<Vector2Int>();
     public List<Vector3> spawnPointPos = new List<Vector3>();
-
+    public int numberOfStepData;
 }

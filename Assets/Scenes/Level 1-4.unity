@@ -1242,6 +1242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeBeforeRestarting: 1
   PlayerMovesAllowed: 15
+  currentLevelIndex: 4
 --- !u!4 &1856494449
 Transform:
   m_ObjectHideFlags: 0
